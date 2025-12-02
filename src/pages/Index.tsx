@@ -1,10 +1,22 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [activeSection, setActiveSection] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -15,20 +27,40 @@ const Index = () => {
   };
 
   const services = [
-    { id: 1, name: 'Световые короба', icon: 'Box', color: 'bg-[#FFD700]' },
-    { id: 2, name: 'Широкоформатная печать', icon: 'Printer', color: 'bg-[#E91E63]' },
-    { id: 3, name: 'Световые вывески', icon: 'Lightbulb', color: 'bg-[#00BCD4]' },
-    { id: 4, name: 'Офсетная печать', icon: 'FileText', color: 'bg-[#FFD700]' },
-    { id: 5, name: 'Цифровая печать', icon: 'Monitor', color: 'bg-[#E91E63]' },
-    { id: 6, name: 'Разработка логотипов', icon: 'Palette', color: 'bg-[#00BCD4]' },
-    { id: 7, name: 'Флексографическая печать', icon: 'Stamp', color: 'bg-[#FFD700]' },
+    { id: 1, name: 'Световые короба', icon: 'Box', color: 'bg-[#FFD700]', slug: 'световые-короба' },
+    { id: 2, name: 'Широкоформатная печать', icon: 'Printer', color: 'bg-[#E91E63]', slug: 'широкоформатная-печать' },
+    { id: 3, name: 'Световые вывески', icon: 'Lightbulb', color: 'bg-[#00BCD4]', slug: 'световые-вывески' },
+    { id: 4, name: 'Офсетная печать', icon: 'FileText', color: 'bg-[#FFD700]', slug: 'офсетная-печать' },
+    { id: 5, name: 'Цифровая печать', icon: 'Monitor', color: 'bg-[#E91E63]', slug: 'цифровая-печать' },
+    { id: 6, name: 'Разработка логотипов', icon: 'Palette', color: 'bg-[#00BCD4]', slug: 'разработка-логотипов' },
+    { id: 7, name: 'Флексографическая печать', icon: 'Stamp', color: 'bg-[#FFD700]', slug: 'флексографическая-печать' },
   ];
 
   const portfolioItems = [
-    { id: 1, title: 'Вывеска для магазина', category: 'Световые вывески' },
-    { id: 2, title: 'Брендинг кафе', category: 'Разработка логотипов' },
-    { id: 3, title: 'Наружная реклама', category: 'Широкоформатная печать' },
-    { id: 4, title: 'Упаковка продукции', category: 'Флексографическая печать' },
+    { 
+      id: 1, 
+      title: 'Вывеска для магазина', 
+      category: 'Световые вывески',
+      image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/5d01a11e-6c83-44bf-b8da-9a8f63072b6e.jpg'
+    },
+    { 
+      id: 2, 
+      title: 'Брендинг кафе', 
+      category: 'Разработка логотипов',
+      image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/0f86f31f-7560-4864-96e6-4f6cda3e92ce.jpg'
+    },
+    { 
+      id: 3, 
+      title: 'Наружная реклама', 
+      category: 'Широкоформатная печать',
+      image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/a09a667e-6414-4e5c-84ff-592bd5481df0.jpg'
+    },
+    { 
+      id: 4, 
+      title: 'Световая вывеска кафе', 
+      category: 'Световые вывески',
+      image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/868abe60-b142-4121-9296-a441a979f52e.jpg'
+    },
   ];
 
   const reviews = [
@@ -132,6 +164,7 @@ const Index = () => {
             {services.map((service) => (
               <Card
                 key={service.id}
+                onClick={() => navigate(`/service/${service.slug}`)}
                 className="hover-scale cursor-pointer overflow-hidden border-2 hover:border-primary transition-all"
               >
                 <CardContent className="p-6 text-center">
@@ -152,7 +185,13 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {portfolioItems.map((item) => (
               <Card key={item.id} className="overflow-hidden hover-scale cursor-pointer">
-                <div className="h-48 bg-gradient-to-br from-primary to-secondary"></div>
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <CardContent className="p-4">
                   <h3 className="font-semibold mb-2 text-foreground">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.category}</p>
@@ -190,7 +229,7 @@ const Index = () => {
       <section id="contacts" className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Контакты</h2>
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4 text-foreground">Наш адрес</h3>
@@ -218,11 +257,91 @@ const Index = () => {
               <CardContent className="p-6 text-center">
                 <h3 className="text-xl font-semibold mb-4 text-foreground">Мы в соцсетях</h3>
                 <div className="bg-white p-4 rounded-lg inline-block mb-4">
-                  <div className="w-48 h-48 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                  <div className="w-40 h-40 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
                     <span className="text-white text-sm">QR-код ВКонтакте</span>
                   </div>
                 </div>
-                <p className="text-muted-foreground">Отсканируйте код для перехода на нашу страницу ВКонтакте</p>
+                <p className="text-muted-foreground text-sm">Отсканируйте код для перехода на нашу страницу ВКонтакте</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact-form" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-4 text-primary">Оставьте заявку</h2>
+            <p className="text-center text-muted-foreground mb-8">
+              Заполните форму, и мы свяжемся с вами в ближайшее время
+            </p>
+            <Card>
+              <CardContent className="p-8">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    toast({
+                      title: 'Заявка отправлена!',
+                      description: 'Мы свяжемся с вами в ближайшее время',
+                    });
+                    setFormData({ name: '', phone: '', email: '', message: '' });
+                  }}
+                  className="space-y-6"
+                >
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Ваше имя *
+                    </label>
+                    <Input
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Иван Иванов"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Телефон *
+                    </label>
+                    <Input
+                      required
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+7 (___) ___-__-__"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Email
+                    </label>
+                    <Input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="example@mail.ru"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-foreground">
+                      Сообщение
+                    </label>
+                    <Textarea
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Расскажите о вашем проекте..."
+                      rows={4}
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full bg-accent hover:bg-accent/90 text-white"
+                  >
+                    <Icon name="Send" size={20} className="mr-2" />
+                    Отправить заявку
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </div>
