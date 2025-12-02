@@ -10,6 +10,7 @@ interface ServiceInfo {
   description: string;
   features: string[];
   examples: string[];
+  image: string;
 }
 
 const servicesData: Record<string, ServiceInfo> = {
@@ -18,6 +19,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Box',
     color: 'bg-[#FFD700]',
     description: 'Изготовление световых коробов любой сложности и размера. Используем качественные материалы и современные LED-технологии для создания яркой и долговечной рекламы.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/5d01a11e-6c83-44bf-b8da-9a8f63072b6e.jpg',
     features: [
       'Индивидуальный дизайн',
       'Светодиодная подсветка',
@@ -37,6 +39,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Printer',
     color: 'bg-[#E91E63]',
     description: 'Профессиональная широкоформатная печать на различных материалах. Идеально для наружной рекламы, выставочных стендов и оформления интерьеров.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/a09a667e-6414-4e5c-84ff-592bd5481df0.jpg',
     features: [
       'Печать до 5 метров шириной',
       'Высокое разрешение печати',
@@ -57,6 +60,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Lightbulb',
     color: 'bg-[#00BCD4]',
     description: 'Создание эффектных световых вывесок для привлечения внимания к вашему бизнесу. Современные решения с использованием LED-технологий.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/868abe60-b142-4121-9296-a441a979f52e.jpg',
     features: [
       'Объемные световые буквы',
       'Контражурная подсветка',
@@ -77,6 +81,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'FileText',
     color: 'bg-[#FFD700]',
     description: 'Классическая офсетная печать для больших тиражей полиграфической продукции. Отличное качество и экономичность при печати от 500 экземпляров.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/a09a667e-6414-4e5c-84ff-592bd5481df0.jpg',
     features: [
       'Высокое качество печати',
       'Экономия на больших тиражах',
@@ -97,6 +102,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Monitor',
     color: 'bg-[#E91E63]',
     description: 'Оперативная цифровая печать малых и средних тиражей. Идеально для срочных заказов и персонализированной продукции.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/a09a667e-6414-4e5c-84ff-592bd5481df0.jpg',
     features: [
       'Печать от 1 экземпляра',
       'Быстрое изготовление',
@@ -117,6 +123,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Palette',
     color: 'bg-[#00BCD4]',
     description: 'Профессиональная разработка фирменного стиля и логотипов. Создаем уникальные визуальные решения для вашего бренда.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/0f86f31f-7560-4864-96e6-4f6cda3e92ce.jpg',
     features: [
       'Индивидуальный подход',
       'Несколько вариантов',
@@ -137,6 +144,7 @@ const servicesData: Record<string, ServiceInfo> = {
     icon: 'Stamp',
     color: 'bg-[#FFD700]',
     description: 'Специализированная печать для упаковочных материалов. Идеально подходит для печати на пленке, картоне и других нестандартных материалах.',
+    image: 'https://cdn.poehali.dev/projects/aa48e85f-558f-4273-a4b2-5e1a95e6363a/files/a09a667e-6414-4e5c-84ff-592bd5481df0.jpg',
     features: [
       'Печать на различных материалах',
       'Высокая скорость печати',
@@ -195,10 +203,18 @@ const ServiceDetail = () => {
         </div>
       </header>
 
-      <section className="py-12 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
-        <div className="container mx-auto px-4">
+      <section className="relative h-96 overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src={service.image} 
+            alt={service.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70"></div>
+        </div>
+        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center text-primary-foreground">
           <div className="flex items-center gap-6 mb-6">
-            <div className={`${service.color} w-20 h-20 rounded-full flex items-center justify-center`}>
+            <div className={`${service.color} w-20 h-20 rounded-full flex items-center justify-center shadow-lg`}>
               <Icon name={service.icon} size={40} className="text-white" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold">{service.name}</h1>

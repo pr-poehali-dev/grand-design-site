@@ -100,7 +100,7 @@ const Index = () => {
               />
             </div>
             <nav className="hidden md:flex gap-6">
-              {['about', 'services', 'portfolio', 'reviews', 'contacts'].map((section) => (
+              {['services', 'portfolio', 'reviews', 'contacts', 'about'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -108,11 +108,11 @@ const Index = () => {
                     activeSection === section ? 'text-[#FFD700]' : ''
                   }`}
                 >
-                  {section === 'about' && 'О нас'}
                   {section === 'services' && 'Услуги'}
                   {section === 'portfolio' && 'Портфолио'}
                   {section === 'reviews' && 'Отзывы'}
                   {section === 'contacts' && 'Контакты'}
+                  {section === 'about' && 'О нас'}
                 </button>
               ))}
             </nav>
@@ -137,23 +137,6 @@ const Index = () => {
           >
             Наши услуги
           </Button>
-        </div>
-      </section>
-
-      <section id="about" className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-primary">О нас</h2>
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg mb-6 text-foreground">
-              <strong>Гранд-дизайн</strong> — это современный рекламно-полиграфический центр с многолетним
-              опытом работы. Мы специализируемся на создании качественной рекламной продукции любой
-              сложности.
-            </p>
-            <p className="text-lg text-foreground">
-              Наша команда профессионалов использует передовое оборудование и материалы, чтобы
-              воплотить в жизнь самые смелые идеи наших клиентов.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -344,6 +327,23 @@ const Index = () => {
                 </form>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-primary">О нас</h2>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg mb-6 text-foreground">
+              <strong>Гранд-дизайн</strong> — это современный рекламно-полиграфический центр с многолетним
+              опытом работы. Мы специализируемся на создании качественной рекламной продукции любой
+              сложности.
+            </p>
+            <p className="text-lg text-foreground">
+              Наша команда профессионалов использует передовое оборудование и материалы, чтобы
+              воплотить в жизнь самые смелые идеи наших клиентов.
+            </p>
           </div>
         </div>
       </section>
