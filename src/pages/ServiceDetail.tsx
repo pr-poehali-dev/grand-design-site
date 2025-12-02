@@ -266,12 +266,34 @@ const ServiceDetail = () => {
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-primary">Примеры работ</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <Card key={i} className="overflow-hidden hover-scale">
-                <div className="h-64 bg-gradient-to-br from-primary to-secondary"></div>
-              </Card>
-            ))}
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <Card className="overflow-hidden hover-scale">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src={service.image}
+                  alt="Пример работы 1"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Card>
+            <Card className="overflow-hidden hover-scale">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src={service.image}
+                  alt="Пример работы 2"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Card>
+            <Card className="overflow-hidden hover-scale">
+              <div className="h-64 overflow-hidden">
+                <img 
+                  src={service.image}
+                  alt="Пример работы 3"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </Card>
           </div>
         </div>
       </section>

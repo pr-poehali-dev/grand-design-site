@@ -5,6 +5,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
@@ -100,7 +107,7 @@ const Index = () => {
               />
             </div>
             <nav className="hidden md:flex gap-6">
-              {['services', 'portfolio', 'reviews', 'contacts', 'about'].map((section) => (
+              {['about', 'services', 'portfolio', 'reviews', 'contacts'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -108,11 +115,11 @@ const Index = () => {
                     activeSection === section ? 'text-[#FFD700]' : ''
                   }`}
                 >
+                  {section === 'about' && 'О нас'}
                   {section === 'services' && 'Услуги'}
                   {section === 'portfolio' && 'Портфолио'}
                   {section === 'reviews' && 'Отзывы'}
                   {section === 'contacts' && 'Контакты'}
-                  {section === 'about' && 'О нас'}
                 </button>
               ))}
             </nav>
@@ -140,10 +147,27 @@ const Index = () => {
         </div>
       </section>
 
+      <section id="about" className="py-20 bg-muted">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-12 text-primary">О нас</h2>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg mb-6 text-foreground">
+              <strong>Гранд-дизайн</strong> — это современный рекламно-полиграфический центр с многолетним
+              опытом работы. Мы специализируемся на создании качественной рекламной продукции любой
+              сложности.
+            </p>
+            <p className="text-lg text-foreground">
+              Наша команда профессионалов использует передовое оборудование и материалы, чтобы
+              воплотить в жизнь самые смелые идеи наших клиентов.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section id="services" className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Наши услуги</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {services.map((service) => (
               <Card
                 key={service.id}
@@ -165,22 +189,30 @@ const Index = () => {
       <section id="portfolio" className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Портфолио</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {portfolioItems.map((item) => (
-              <Card key={item.id} className="overflow-hidden hover-scale cursor-pointer">
-                <div className="h-48 overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-2 text-foreground">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.category}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-5xl mx-auto">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {portfolioItems.map((item) => (
+                  <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3">
+                    <Card className="overflow-hidden hover-scale cursor-pointer">
+                      <div className="h-64 overflow-hidden">
+                        <img 
+                          src={item.image} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold mb-2 text-foreground">{item.title}</h3>
+                        <p className="text-sm text-muted-foreground">{item.category}</p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="-left-12" />
+              <CarouselNext className="-right-12" />
+            </Carousel>
           </div>
         </div>
       </section>
@@ -188,23 +220,31 @@ const Index = () => {
       <section id="reviews" className="py-20">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Отзывы клиентов</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {reviews.map((review) => (
-              <Card key={review.id} className="hover-scale">
-                <CardContent className="p-6">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" size={20} className="text-[#FFD700] fill-[#FFD700]" />
-                    ))}
-                  </div>
-                  <p className="text-foreground mb-4 italic">"{review.text}"</p>
-                  <div>
-                    <p className="font-semibold text-foreground">{review.name}</p>
-                    <p className="text-sm text-muted-foreground">{review.company}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-5xl mx-auto">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {reviews.map((review) => (
+                  <CarouselItem key={review.id} className="md:basis-1/2 lg:basis-1/3">
+                    <Card className="hover-scale h-full">
+                      <CardContent className="p-6">
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(review.rating)].map((_, i) => (
+                            <Icon key={i} name="Star" size={20} className="text-[#FFD700] fill-[#FFD700]" />
+                          ))}
+                        </div>
+                        <p className="text-foreground mb-4 italic">"{review.text}"</p>
+                        <div>
+                          <p className="font-semibold text-foreground">{review.name}</p>
+                          <p className="text-sm text-muted-foreground">{review.company}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="-left-12" />
+              <CarouselNext className="-right-12" />
+            </Carousel>
           </div>
         </div>
       </section>
@@ -212,7 +252,7 @@ const Index = () => {
       <section id="contacts" className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Контакты</h2>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
+          <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4 text-foreground">Наш адрес</h3>
@@ -327,23 +367,6 @@ const Index = () => {
                 </form>
               </CardContent>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="py-20 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-primary">О нас</h2>
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-lg mb-6 text-foreground">
-              <strong>Гранд-дизайн</strong> — это современный рекламно-полиграфический центр с многолетним
-              опытом работы. Мы специализируемся на создании качественной рекламной продукции любой
-              сложности.
-            </p>
-            <p className="text-lg text-foreground">
-              Наша команда профессионалов использует передовое оборудование и материалы, чтобы
-              воплотить в жизнь самые смелые идеи наших клиентов.
-            </p>
           </div>
         </div>
       </section>
